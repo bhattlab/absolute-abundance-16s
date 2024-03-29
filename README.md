@@ -1,35 +1,39 @@
-# absolute-abundance-16s
+# Absolute Abundance
 
-## Absolute quantification of prokaryotes in the microbiome by 16S rRNA qPCR or ddPCR
+Absolute quantification of prokaryotes in the microbiome by 16S rRNA qPCR or ddPCR
 
-## citations
-
-## updates
-
-# Table of contents
-1. [Description](#description)
+### Table of contents
+1. [Organization](#organization)
 2. [Using the scripts and notebooks](#using-the-scripts-and-notebooks)
       * [Setup](#setup)
       * [Examples](#examples)
           * [qPCR](#qpcr)
           * [ddPCR](#ddpcr)
-          * [Notebooks](#notebooks)
+      * [Jupyter notebooks](#jupyter-notebooks)
       * [Prepare input files](#prepare-input-files)
+          * [qPCR-specific analysis](#qpcr-specific-analysis)
+          * [ddPCR-specific analysis](#ddpcr-specific-analysis)
+          * [Universal analysis](#universal-analysis)
       * [Run scripts and view output](#run-scripts-and-view-output)
+          * [qPCR](#qpcr)
+          * [ddPCR](#ddpcr)
       * [User adjustable parameters](#user-adjustable-parameters)
+          * [qPCR-specific analysis](#qpcr-specific-analysis)
+          * [ddPCR-specific analysis](#ddpcr-specific-analysis)
+          * [Universal analysis](#universal-analysis)
 
-# Description
+# Organization
 This repo contains the following directories:
-* source code in ```src```
-* scripts in ```scripts```
-    * qPCR-specific analysis, following the steps described in the protocol to perform quality control and calculate 16S rRNA copies per reaction from qPCR data
-    * ddPCR-specific analysis, following the steps described in the protocol to perform quality control and calculate 16S rRNA copies per reaction from ddPCR data
-    * universal analysis, following the steps described in the protocol to assess controls and calculate 16S rRNA copies per dry gram of input stool
-* key general files that the scripts rely on in ```artifacts```
-* examples in ```examples```
-    * qPCR example, including toy data input files, bash files to run the scripts, and toy data example output
-    * ddPCR example, including toy data input files, bash files to run the scripts, and toy data example output
-* data and code specific to manuscripts in ```manuscripts```
+* ```src``` contains source code
+* ```scripts``` contains scripts
+    * ```qpcr_specific_analysis.py``` follows the steps in qPCR-specific analysis in the protocol to perform quality control and calculate 16S rRNA copies per reaction from qPCR data
+    * ```ddpcr_specific_analysis.py``` follows the steps in ddPCR-specific analysis in the protocol to perform quality control and calculate 16S rRNA copies per reaction from ddPCR data
+    * ```universal_analysis.py``` follows the steps in Universal analysis in the protocol to assess controls and calculate 16S rRNA copies per dry gram of input stool
+* ```artifacts``` contains key general files that the scripts rely on
+* ```examples``` contains examples
+    * ```qpcr_v1``` includes toy data input files, bash files to run the scripts, toy data example expected output, and a template Jupyter notebook
+    * ```ddpcr_v1``` includes toy data input files, bash files to run the scripts, toy data example expected output, and a template Jupyter notebook
+* ```manuscripts``` contains data and code specific to associated manuscripts
 
 # Using the scripts and notebooks
 ## Setup
@@ -59,7 +63,11 @@ Note: Most versions of packages should work. For a list of specific package vers
 
 Navigate to
 
-    cd examples/qpcr_v1
+    cd absolute-abundance-16s/examples/qpcr_v1
+
+Then make an output directory
+
+    mkdir output
 
 Perform qPCR-specific analysis
 
@@ -67,7 +75,7 @@ Perform qPCR-specific analysis
 
 And then use the output from qPCR-specific analysis for universal analysis
 
-    bash universal_analysis_from_qpcr.sh
+    bash universal_analysis_after_qpcr.sh
 
 As each analysis script proceeds, it will output key information to the command line. The output files will appear in ```output``` and can be compared to the ```output_expected```.
 
@@ -75,7 +83,11 @@ As each analysis script proceeds, it will output key information to the command 
 
 Navigate to
 
-    cd examples/ddpcr_v1
+    cd absolute-abundance-16s/examples/ddpcr_v1
+
+Then make an output directory
+
+    mkdir output
 
 Perform ddPCR-specific analysis
 
@@ -83,11 +95,11 @@ Perform ddPCR-specific analysis
 
 And then use the output from ddPCR-specific analysis for universal analysis
 
-    bash universal_analysis_from_ddpcr.sh
+    bash universal_analysis_after_ddpcr.sh
 
 As each analysis script proceeds, it will output key information to the command line. The output files will appear in ```output``` and can be compared to the ```output_expected```.
 
-### Notebooks
+## Jupyter notebooks
 
 We highly recommend analyzing data interactively. One way to do this is with a notebook in Jupyter Lab.
 

@@ -1,0 +1,1 @@
+* ```artifacts``` contains key general files that the scripts rely on
