@@ -220,6 +220,9 @@ def plot_standard_model(df_p, df_f, model):
     plt.grid()
 
 
+def calculate_pcr_efficiency(model):
+    return 10**(-1/model.slope) - 1
+
 def calculate_cq_limit_of_quantification(param_dict):
     if param_dict["OVERHANG_ALLOWED"] == True:
         param_dict["CQ_LIMIT_OF_QUANTIFICATION"] = (

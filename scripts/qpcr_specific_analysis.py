@@ -406,7 +406,7 @@ def main(
             f" and {param_dict['LEAST_STEEP_SLOPE_ALLOWED']:.3g}."
         )
         raise RuntimeError("The script aborted. You may rerun it with different parameters, if appropriate.")
-    print(f"The PCR efficiency is: {10**(-1/smodel.slope) - 1:.3g}")
+    print(f"The PCR efficiency is: {aa.calculate_pcr_efficiency(smodel):.3g}")
     print(f"The R squared value is: {smodel.rvalue * smodel.rvalue:.3g}")
     if smodel.rvalue * smodel.rvalue > param_dict["MIN_R_SQUARED"]:
         print(f"The R squared value is above the minimum value of {param_dict['MIN_R_SQUARED']:.3g}.")
