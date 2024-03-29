@@ -7,20 +7,20 @@ Absolute quantification of prokaryotes in the microbiome by 16S rRNA qPCR or ddP
 2. [Using the scripts and notebooks](#using-the-scripts-and-notebooks)
       * [Setup](#setup)
       * [Examples](#examples)
-          * [qPCR](#qpcr)
-          * [ddPCR](#ddpcr)
+          * [qPCR](#qpcr-examples)
+          * [ddPCR](#ddpcr-examples)
       * [Jupyter notebooks](#jupyter-notebooks)
       * [Prepare input files](#prepare-input-files)
-          * [qPCR-specific analysis](#qpcr-specific-analysis)
-          * [ddPCR-specific analysis](#ddpcr-specific-analysis)
-          * [Universal analysis](#universal-analysis)
+          * [qPCR-specific analysis](#qpcr-input)
+          * [ddPCR-specific analysis](#ddpcr-input)
+          * [Universal analysis](#universal-input)
       * [Run scripts and view output](#run-scripts-and-view-output)
-          * [qPCR](#qpcr)
-          * [ddPCR](#ddpcr)
+          * [qPCR](#qpcr-run-scripts)
+          * [ddPCR](#ddpcr-run-scripts)
       * [User adjustable parameters](#user-adjustable-parameters)
-          * [qPCR-specific analysis](#qpcr-specific-analysis)
-          * [ddPCR-specific analysis](#ddpcr-specific-analysis)
-          * [Universal analysis](#universal-analysis)
+          * [qPCR-specific analysis](#qpcr-parameters)
+          * [ddPCR-specific analysis](#ddpcr-parameters)
+          * [Universal analysis](#universal-parameters)
 
 # Organization
 This repo contains the following directories:
@@ -60,6 +60,7 @@ Note: Most versions of packages should work. For a list of specific package vers
 
 ## Examples
 ### qPCR
+<a name="qpcr-examples"></a>
 
 Navigate to
 
@@ -80,6 +81,7 @@ And then use the output from qPCR-specific analysis for universal analysis
 As each analysis script proceeds, it will output key information to the command line. The output files will appear in ```output``` and can be compared to the ```output_expected```.
 
 ### ddPCR
+<a name="ddpcr-examples"></a>
 
 Navigate to
 
@@ -118,6 +120,7 @@ The notebooks do not automatically save any outputs, but they can be edited to d
 
 ## Prepare input files
 ### qPCR-specific analysis
+<a name="qpcr-input"></a>
 **1. qPCR data Excel spreadsheet with two columns**
 <table border="0">
  <tr>
@@ -171,6 +174,7 @@ The notebooks do not automatically save any outputs, but they can be edited to d
 </table>
   
 ### ddPCR-specific analysis
+<a name="ddpcr-input"></a>
 **1. ddPCR data Excel spreadsheet with four columns**
 <table border="0">
  <tr>
@@ -232,6 +236,7 @@ The notebooks do not automatically save any outputs, but they can be edited to d
 </table>
 
 ### Universal analysis
+<a name="universal-input"></a>
 **1. The output from qPCR-specific or ddPCR-specific analysis, specifically the "for_universal_analysis" sheet**
 
 **2. Weights Excel spreadsheet with six columns**
@@ -271,6 +276,7 @@ The notebooks do not automatically save any outputs, but they can be edited to d
 Create a new directory for the prepared input files from the previous step and create another directory for the script output.
 
 ### qPCR
+<a name="qpcr-run-scripts"></a>
 
 Edit and execute the following command for qPCR-specific analysis to perform quality control and calculate 16S rRNA copies per reaction.
 
@@ -382,6 +388,7 @@ The universal analysis script outputs an Excel spreadsheet ```univ_analysis_outp
 Note: unlike in qPCR- and ddPCR-specific analysis, the samples identified in the latter four sheets of universal analysis are not removed. It is up to the user to assess the situation on a case-by-case basis.
 
 ### ddPCR
+<a name="ddpcr-run-scripts"></a>
 
 Edit and execute the following command for ddPCR-specific analysis to perform quality control and calculate 16S rRNA copies per reaction.
 
@@ -427,6 +434,7 @@ The scripts provide default values for all parameters, which align with the reco
     python scripts/universal_analysis.py --help
 
 ### qPCR-specific analysis
+<a name="qpcr-parameters"></a>
 
 ```
 Usage: qpcr_specific_analysis.py [OPTIONS]
@@ -477,6 +485,7 @@ Options:
 ```
 
 ### ddPCR-specific analysis
+<a name="ddpcr-parameters"></a>
 
 ```
 Usage: ddpcr_specific_analysis.py [OPTIONS]
@@ -502,6 +511,7 @@ Options:
 ```
 
 ### Universal analysis
+<a name="universal-parameters"></a>
 
 ```
 Usage: universal_analysis.py [OPTIONS]
