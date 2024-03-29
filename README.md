@@ -40,19 +40,19 @@ This repo contains the following directories:
 
 **Install dependencies**
 
-Install conda (https://developers.google.com/earth-engine/guides/python_install-conda/), if not already installed. This will provide Python (tested version 3.12.1).
+Install conda (https://developers.google.com/earth-engine/guides/python_install-conda/), if not already installed. This will provide Python.
 
 Then execute the following commands.
 
-    pip install click==8.1.7
-    pip install matplotlib==3.8.3
-    pip install pandas==2.2.1
-    pip install scipy==1.12.0
-    pip install seaborn==0.13.2
-    pip install openpyxl==3.1.2
+    pip install click
+    pip install matplotlib
+    pip install pandas
+    pip install scipy
+    pip install seaborn
+    pip install openpyxl
     pip install jupyterlab
 
-Note: These are the tested package versions, but the scripts most likely work with other versions as well.
+Note: Most versions of packages should work. For a list of specific package versions used during testing, refer to ```requirements_pinned.txt```.
 
 ## Examples
 ### qPCR
