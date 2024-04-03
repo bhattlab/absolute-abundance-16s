@@ -180,37 +180,37 @@ def main(
     # Formatting
     nist_expected2 = aa.format_nist_expected(nist_expected)
 
-    # Step 133
-    print(f"\nStep 133")
+    # Step 109
+    print(f"\nStep 109")
     nist_measured = aa.calculate_nist_copies_uL(data[data["Type"] == "PCRPos"])
     print(f"16S rRNA copies per undiluted uL for NIST controls were calculated.")
 
-    # Step 134
-    print(f"\nStep 134")
+    # Step 110
+    print(f"\nStep 110")
     nist_measured_expected = aa.compare_nist_to_expected(nist_measured, nist_expected2, param_dict)
     print(
         f"{nist_measured_expected[nist_measured_expected['within_desired_range'].str.contains('no')].copy().shape[0]:.3g}"
         f" NIST controls were outside of the expected range."
     )
 
-    # Step 135
-    print(f"\nStep 135")
+    # Step 111
+    print(f"\nStep 111")
     print(f"This step is currently outside of the scope of this script but is an important step in many use cases.")
     print(f"Do not forget to assess data points when a given sample was assayed at multiple dilutions.")
 
-    # Step 136
-    print(f"\nStep 136")
+    # Step 112
+    print(f"\nStep 112")
     print(f"This step is currently outside of the scope of this script but is an important step in many use cases.")
     print(f"Do not forget to select a dilution when a given sample was assayed at multiple dilutions.")
 
-    # Step 137
-    print(f"\nStep 137")
+    # Step 113
+    print(f"\nStep 113")
     samples_controls1 = data[data["Type"].isin(["DNAPos", "DNANeg", "Sample"])]
     samples_controls2 = aa.calculate_copies_per_dna_extraction(samples_controls1)
     print(f"16S rRNA copies per DNA extraction were calculated.")
 
-    # Step 138
-    print(f"\nStep 138")
+    # Step 114
+    print(f"\nStep 114")
     negative_DNA_extraction_controls = samples_controls2[samples_controls2["Type"] == "DNANeg"]
     if negative_DNA_extraction_controls.shape[0] > 0:
         print(
@@ -230,16 +230,16 @@ def main(
     else:
         print(f"There were no negative DNA extraction controls above the limit of quantification on this plate.")
 
-    # Step 139
-    print(f"\nStep 139")
+    # Step 115
+    print(f"\nStep 115")
     print(f"This step is currently outside of the scope of this script but is an important step in many use cases.")
     print(
-        f"Do not forget to remove samples with a lower 16S rRNA copies per DNA extraction than that of "
-        f"the negative DNA extraction control by batch."
+        f"Do not forget to remove samples if the 16S rRNA copies per DNA extraction is less than 4-fold above "
+        f"that of the negative DNA extraction control by batch."
     )
 
-    # Step 140
-    print(f"\nStep 140")
+    # Step 116
+    print(f"\nStep 116")
     positive_DNA_extraction_controls, pos_DNA_extraction_fold_diff = aa.assess_positive_DNA_extraction_controls(
         samples_controls2
     )
@@ -259,8 +259,8 @@ def main(
         print(f"There were no positive DNA extraction controls on this plate.")
     print(f"Do not forget to compare positive DNA extraction controls across all DNA extraction batches.")
 
-    # Step 141
-    print(f"\nStep 141")
+    # Step 117
+    print(f"\nStep 117")
     weights2, samples_with_DNA_extraction_input_outside_range = aa.calculate_wet_mass_extracted_from(
         weights, param_dict
     )
@@ -269,8 +269,8 @@ def main(
     )
     print(f"They are still included in downstream analysis.")
 
-    # Step 142
-    print(f"\nStep 142")
+    # Step 118
+    print(f"\nStep 118")
     weights3, samples_with_drying_input_outside_range, samples_with_dry_amount_of_stool_low = (
         aa.calculate_wet_and_dry_drying_mass(weights2, param_dict)
     )
@@ -281,23 +281,23 @@ def main(
     )
     print(f"They are still included in downstream analysis.")
 
-    # Step 143
-    print(f"\nStep 143")
+    # Step 119
+    print(f"\nStep 119")
     weights4, water_fraction_over_cutoff = aa.calculate_water_fraction(weights3, param_dict)
     print(
         f"{water_fraction_over_cutoff.shape[0]:.3g} samples had a water fraction over the cutoff "
         f"of {param_dict['WATER_FRACTION_CUTOFF']:.3g}."
     )
 
-    # Step 144
-    print(f"\nStep 144")
+    # Step 120
+    print(f"\nStep 120")
     weights5 = aa.cutoff_water_fraction(weights4, param_dict)
     print(
         f"The water fraction was set to the cutoff of {param_dict['WATER_FRACTION_CUTOFF']:.3g} for those samples in downstream analysis."
     )
 
-    # Step 145 and 146
-    print(f"\nStep 145 and 146")
+    # Step 121 and 122
+    print(f"\nStep 121 and 122")
     weights6 = aa.calculate_effective_dry_stool_extracted_from(weights5)
     copies_weights = samples_controls2[samples_controls2["Type"] == "Sample"].merge(weights6, on="Name", how="left")
     copies_weights2 = aa.calculate_copies_per_wet_stool_g(copies_weights)
@@ -318,7 +318,7 @@ def main(
         samples_with_drying_input_outside_range.to_excel(writer, sheet_name="drying_input_outside_range", index=False)
         samples_with_dry_amount_of_stool_low.to_excel(writer, sheet_name="dry_stool_amount_low", index=False)
         water_fraction_over_cutoff.to_excel(writer, sheet_name="water_fraction_over_cutoff", index=False)
-    print(f"\nOutputs Complete")
+    print(f"\nOutputs Complete\n")
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+import platform
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -22,7 +23,11 @@ def prepare_matplotlib(sm=12, md=14, bg=16):
     plt.rcParams["pdf.fonttype"] = 42
     plt.rcParams["ps.fonttype"] = 42
     plt.rcParams["font.family"] = "sans-serif"
-    plt.rcParams["font.sans-serif"] = "Liberation Sans"
+
+    if platform.system() == 'Linux':
+        plt.rcParams["font.sans-serif"] = "Liberation Sans"
+    else:
+        plt.rcParams["font.sans-serif"] = "Arial"
 
 
 # Sorts by column number then row letter

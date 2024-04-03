@@ -87,7 +87,7 @@ import absolute_abundance_functions as aa
     "NUM_OF_TECH_REPS",
     default=3,
     type=click.IntRange(min=2, max=3),
-    help="number of qPCR technical replicates.",
+    help="number of qPCR technical replicates. 2 replicates will select Rep1 and Rep2 (e.g. A1, A2) from the format conversion file and 3 replicates will select Rep1, Rep2, and Rep3 (e.g. A1, A2, B1) from the format conversion file.",
     metavar="",
 )
 @click.option(
@@ -241,8 +241,8 @@ def main(
     # Formatting
     qpcr2, layout96 = aa.qpcr_initial_formatting(layout96, format_conversion, qpcr, param_dict)
 
-    # Step 86
-    print(f"\nStep 86")
+    # Step 72
+    print(f"\nStep 72")
     qpcr3, fewer_than_two_reps = aa.manage_tech_rep_failures(qpcr2)
     print(
         f"{fewer_than_two_reps['Name'].nunique():.3g} measurements (e.g. wells on the 96-well plate) "
@@ -250,8 +250,8 @@ def main(
         f" Please carefully review them."
     )
 
-    # Step 87
-    print(f"\nStep 87")
+    # Step 73
+    print(f"\nStep 73")
     Cq_NTC_span, param_dict = aa.assess_NTC(qpcr3, param_dict)
     if Cq_NTC_span < param_dict["MAX_CQ_SPAN_NTC"]:
         print(
@@ -266,8 +266,8 @@ def main(
         )
         raise RuntimeError("The script aborted. You may rerun it with different parameters, if appropriate.")
 
-    # Step 89
-    print(f"\nStep 89")
+    # Step 75
+    print(f"\nStep 75")
     pvul1 = qpcr3[qpcr3["Type"].isin(["Pvul"])].copy()
     fpra1 = qpcr3[qpcr3["Type"].isin(["Fpra"])].copy()
     pvul2 = aa.calculate_qubit_copies(pvul1, param_dict["PCOPY"])
@@ -276,19 +276,19 @@ def main(
     print(f"The F. prausnitzii stock plasmid copy number per reaction is {param_dict['FCOPY']:.3g}")
     print(f"Check that these values are correct as any discrepancies will affect all downstream results.")
 
-    # Step 90
-    print(f"\nStep 90")
+    # Step 76
+    print(f"\nStep 76")
     aa.visualize_standards(df_p=pvul2, df_f=fpra2)
     plt.savefig(
-        os.path.join(output_folder_path, "standard_curve_visualization_post_step_90.pdf"),
+        os.path.join(output_folder_path, "standard_curve_visualization_post_step_76.pdf"),
         format="pdf",
         dpi=300,
         bbox_inches="tight",
     )
     print(f"Plot outputted with all dilution points of the standard curve plasmids.")
 
-    # Step 91
-    print(f"\nStep 91")
+    # Step 77
+    print(f"\nStep 77")
     pvul3, p_var_dilutions_removed = aa.remove_dilutions_with_tech_rep_variation(pvul2, param_dict)
     fpra3, f_var_dilutions_removed = aa.remove_dilutions_with_tech_rep_variation(fpra2, param_dict)
     p_var_dilutions_removed_number = p_var_dilutions_removed["Dilution"].nunique()
@@ -313,14 +313,14 @@ def main(
         )
     aa.visualize_standards(df_p=pvul3, df_f=fpra3)
     plt.savefig(
-        os.path.join(output_folder_path, "standard_curve_visualization_post_step_91.pdf"),
+        os.path.join(output_folder_path, "standard_curve_visualization_post_step_77.pdf"),
         format="pdf",
         dpi=300,
         bbox_inches="tight",
     )
 
-    # Step 92
-    print(f"\nStep 92")
+    # Step 78
+    print(f"\nStep 78")
     pvul4, p_conc_dilutions_removed = aa.remove_concentrated_standards(pvul3, param_dict)
     fpra4, f_conc_dilutions_removed = aa.remove_concentrated_standards(fpra3, param_dict)
     print(
@@ -333,14 +333,14 @@ def main(
     )
     aa.visualize_standards(df_p=pvul4, df_f=fpra4)
     plt.savefig(
-        os.path.join(output_folder_path, "standard_curve_visualization_post_step_92.pdf"),
+        os.path.join(output_folder_path, "standard_curve_visualization_post_step_78.pdf"),
         format="pdf",
         dpi=300,
         bbox_inches="tight",
     )
 
-    # Step 93
-    print(f"\nStep 93")
+    # Step 79
+    print(f"\nStep 79")
     pvul5, p_dil_dilutions_removed = aa.remove_dilute_standards(pvul4, param_dict)
     fpra5, f_dil_dilutions_removed = aa.remove_dilute_standards(fpra4, param_dict)
     print(
@@ -353,14 +353,14 @@ def main(
     )
     aa.visualize_standards(df_p=pvul5, df_f=fpra5)
     plt.savefig(
-        os.path.join(output_folder_path, "standard_curve_visualization_post_step_93.pdf"),
+        os.path.join(output_folder_path, "standard_curve_visualization_post_step_79.pdf"),
         format="pdf",
         dpi=300,
         bbox_inches="tight",
     )
 
-    # Step 94
-    print(f"\nStep 94")
+    # Step 80
+    print(f"\nStep 80")
     maximum_pvul_fpra_discrepancy = aa.compare_pvul_fpra(pvul5, fpra5)
     if maximum_pvul_fpra_discrepancy < param_dict["MAX_FOLD_CHANGE_PVUL_FPRA"]:
         print(
@@ -377,12 +377,12 @@ def main(
         )
         raise RuntimeError("The script aborted. You may rerun it with different parameters, if appropriate.")
 
-    # Step 95
-    print(f"\nStep 95")
+    # Step 81
+    print(f"\nStep 81")
     smodel, param_dict = aa.final_linear_regression(pvul5, fpra5, param_dict)
     aa.plot_standard_model(pvul5, fpra5, smodel)
     plt.savefig(
-        os.path.join(output_folder_path, "standard_curve_visualization_final_post_step_95.pdf"),
+        os.path.join(output_folder_path, "standard_curve_visualization_final_post_step_81.pdf"),
         format="pdf",
         dpi=300,
         bbox_inches="tight",
@@ -414,8 +414,8 @@ def main(
         print(f"The R squared value is below the minimum value of {param_dict['MIN_R_SQUARED']:.3g}.")
         raise RuntimeError("The script aborted. You may rerun it with different parameters, if appropriate.")
 
-    # Step 96
-    print(f"\nStep 96")
+    # Step 82
+    print(f"\nStep 82")
     param_dict = aa.calculate_cq_limit_of_quantification(param_dict)
     print(f"The Cq lower limit of quantification is {param_dict['CQ_LIMIT_OF_QUANTIFICATION']:.3g}")
     if param_dict["CQ_LIMIT_OF_QUANTIFICATION"] > param_dict["CQ_OF_MOST_DILUTE_STANDARD_POINT"]:
@@ -430,8 +430,8 @@ def main(
             f"{param_dict['CQ_OF_MOST_DILUTE_STANDARD_POINT']:.3g}"
         )
 
-    # Step 97
-    print(f"\nStep 97")
+    # Step 83
+    print(f"\nStep 83")
     param_dict = aa.qpcr_calculate_copies_per_reaction_lob(smodel, param_dict)
     print(f"The copies per reaction limit of blank is: {param_dict['COPIES_RXN_LIMIT_OF_BLANK']:.3g}")
     if param_dict["COPIES_RXN_LIMIT_OF_BLANK"] <= param_dict["MAX_COPIES_RXN_LOB"]:
@@ -444,8 +444,8 @@ def main(
         )
         raise RuntimeError("The script aborted. You may rerun it with different parameters, if appropriate.")
 
-    # Step 98
-    print(f"\nStep 98")
+    # Step 84
+    print(f"\nStep 84")
     samples_controls = qpcr3[qpcr3["Type"].isin(["PCRPos", "DNAPos", "DNANeg", "Sample"])]
     samples_controls2, samples_controls_high_variation = aa.identify_samples_with_tech_rep_variation(
         samples_controls, param_dict
@@ -456,13 +456,13 @@ def main(
         f"to technical replicate variation."
     )
 
-    # Step 99
-    print(f"\nStep 99")
+    # Step 85
+    print(f"\nStep 85")
     samples_controls3 = aa.calculate_medians(samples_controls2, layout96)
     print(f"Medians were calculated.")
 
-    # Step 100
-    print(f"\nStep 100")
+    # Step 86
+    print(f"\nStep 86")
     samples_controls4, samples_controls_too_dilute, samples_controls_too_conc = aa.cq_falls_in_quantifiable_range(
         samples_controls3, param_dict
     )
@@ -477,8 +477,8 @@ def main(
         f"with a Cq less than {param_dict['CQ_OF_MOST_CONC_STANDARD_POINT']:.3g}."
     )
 
-    # Step 101
-    print(f"\nStep 101")
+    # Step 87
+    print(f"\nStep 87")
     samples_controls5, low_confidence_not_undiluted = aa.is_low_confidence(samples_controls4, param_dict)
     print(
         f"{low_confidence_not_undiluted.shape[0]:.3g} were low confidence (e.g. Cq within "
@@ -486,8 +486,8 @@ def main(
         f"We suggest reassaying these samples with less or no dilution."
     )
 
-    # Step 102
-    print(f"\nStep 102")
+    # Step 88
+    print(f"\nStep 88")
     samples_controls6 = aa.qpcr_calculate_copies_from_df(samples_controls5, smodel)
     print(f"16S rRNA copies per reaction were calculated.")
 
@@ -510,7 +510,7 @@ def main(
         standard_dilution_points_removed.to_excel(writer, sheet_name="removed_standards", index=False)
         samples_controls_high_variation.to_excel(writer, sheet_name="removed_high_variation_samples", index=False)
         samples_removed.to_excel(writer, sheet_name="removed_samples", index=False)
-    print(f"\nOutputs Complete")
+    print(f"\nOutputs Complete\n")
 
 
 if __name__ == "__main__":

@@ -38,6 +38,8 @@ This repo contains the following directories:
 # Using the scripts and notebooks
 ## Setup
 
+Typical installation time: 5-10 minutes.
+
 **Clone the repository**
 
 	git clone https://github.com/bhattlab/absolute-abundance-16s.git
@@ -56,9 +58,12 @@ Then execute the following commands.
     pip install openpyxl
     pip install jupyterlab
 
-Note: Most versions of packages should work. For a list of specific package versions used during testing, refer to ```requirements_pinned.txt```.
+Note: Most versions of packages should work. For a list of specific package versions used during testing, refer to ```requirements_pinned.txt```. Tested on Linux Ubuntu 20.04.
 
 ## Examples
+
+Typical run time: less than 10 seconds.
+
 ### qPCR
 <a name="qpcr-examples"></a>
 
@@ -161,7 +166,7 @@ The notebooks do not automatically save any outputs, but they can be edited to d
  </tr>
  <tr>
     <td>Type</td>
-    <td>Options in qPCR are "PCRPos" (e.g. for NIST), "PCRNeg" (e.g. for no template control), "DNAPos" (e.g. for Zymo mock), "DNANeg" (e.g. for extraction from water), "Pvul" (e.g. for P. vulgatus standard curve points), "Fpra" (e.g. for F. prausnitzii standard curve points), and "Sample" (e.g. for all samples).</td>
+    <td>Options in qPCR are "PCRPos" (e.g. for NIST), "PCRNeg" (e.g. for no template control), "DNAPos" (e.g. for Zymo mock), "DNANeg" (e.g. for extraction from water), "Pvul" (e.g. for P. vulgatus standard curve dilution points), "Fpra" (e.g. for F. prausnitzii standard curve dilution points), and "Sample" (e.g. for all samples).</td>
  </tr>
  <tr>
     <td>uLAdded</td>
@@ -273,6 +278,8 @@ The notebooks do not automatically save any outputs, but they can be edited to d
 
 ## Run scripts and view output
 
+Typical run time: less than 10 seconds.
+
 Create a new directory for the prepared input files from the previous step and create another directory for the script output.
 
 ### qPCR
@@ -290,23 +297,23 @@ The script will output key information to the command line and files to the spec
     <td><b style="font-size:18px">description</b></td>
  </tr>
  <tr>
-    <td>standard_curve_visualization_post_step_90.pdf</td>
+    <td>standard_curve_visualization_post_step_76.pdf</td>
     <td>Initial visualization</td>
  </tr>
  <tr>
-    <td>standard_curve_visualization_post_step_91.pdf</td>
+    <td>standard_curve_visualization_post_step_77.pdf</td>
     <td>After removing standard curve dilution points with a large technical replicate span</td>
  </tr>
  <tr>
-    <td>standard_curve_visualization_post_step_92.pdf</td>
+    <td>standard_curve_visualization_post_step_78.pdf</td>
     <td>After removing concentrated dilution points that plateau</td>
  </tr>
  <tr>
-    <td>standard_curve_visualization_post_step_93.pdf</td>
+    <td>standard_curve_visualization_post_step_79.pdf</td>
     <td>After removing dilute dilution points too near the limit of blank</td>
  </tr>
  <tr>
-    <td>standard_curve_visualization_final_post_step_95.pdf</td>
+    <td>standard_curve_visualization_final_post_step_81.pdf</td>
     <td>The resulting dilution points and final regression line</td>
  </tr>
 </table>
@@ -365,7 +372,7 @@ The universal analysis script outputs an Excel spreadsheet ```univ_analysis_outp
  </tr>
  <tr>
     <td>pos_dna_extract_controls</td>
-    <td>Zymo mock positive DNA extraction controls</td>
+    <td>Positive DNA extraction controls</td>
  </tr>
  <tr>
     <td>extract_input_outside_range</td>
@@ -450,7 +457,9 @@ Options:
                                   [100000000<=x<=1000000000000; required]
   --fcopy                         16S rRNA copies in uLAdded (e.g. 6 uL) of stock F. prausnitzii standard plasmid.
                                   [100000000<=x<=1000000000000; required]
-  --num-of-tech-reps              number of qPCR technical replicates.  [default: 3; 2<=x<=3]
+  --num-of-tech-reps              number of qPCR technical replicates. 2 replicates will select Rep1 and Rep2 (e.g.
+                                  A1, A2) from the format conversion file and 3 replicates will select Rep1, Rep2, and
+                                  Rep3 (e.g. A1, A2, B1) from the format conversion file.  [default: 3; 2<=x<=3]
   --max-cq-span-ntc               maximum span of median Cq values of all no template controls.  [default: 2;
                                   0.1<=x<=3.3]
   --max-cq-span-standard-dil-pt   maximum span of Cq values of each standard dilution point.  [default: 2;

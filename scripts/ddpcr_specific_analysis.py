@@ -139,18 +139,18 @@ def main(ddpcr_path, ddpcr_sheet_name, layout_path, layout_sheet_name, output_fo
     # Formatting
     ddpcr2 = aa.ddpcr_formatting(layout96, ddpcr)
 
-    # Step 127
-    print(f"\nStep 127")
+    # Step 103
+    print(f"\nStep 103")
     ddpcr3 = aa.ddpcr_calculate_copies_per_reaction_as_setup(ddpcr2, param_dict)
     print(f"16S rRNA copies per reaction were calculated.")
 
-    # Step 128
-    print(f"\nStep 128")
+    # Step 104
+    print(f"\nStep 104")
     ddpcr4, droplets_low = aa.check_num_of_droplets(ddpcr3, param_dict)
     print(f"{droplets_low.shape[0]:.3g} is the number of wells with a low number of droplets.")
 
-    # Step 129
-    print(f"\nStep 129")
+    # Step 105
+    print(f"\nStep 105")
     copies_rxn_NTC_span, param_dict = aa.ddpcr_determine_limit_of_blank(ddpcr4, param_dict)
     if copies_rxn_NTC_span < param_dict["MAX_COPIES_RXN_SPAN_NTC"]:
         print(
@@ -175,8 +175,8 @@ def main(ddpcr_path, ddpcr_sheet_name, layout_path, layout_sheet_name, output_fo
         )
         raise RuntimeError("The script aborted. You may rerun it with different parameters, if appropriate.")
 
-    # Step 130
-    print(f"\nStep 130")
+    # Step 106
+    print(f"\nStep 106")
     ddpcr5 = ddpcr4[ddpcr4["Type"].isin(["PCRPos", "DNAPos", "DNANeg", "Sample"])].copy()
     ddpcr6, too_conc = aa.find_low_negative_droplets(ddpcr5, param_dict)
     print(
@@ -185,8 +185,8 @@ def main(ddpcr_path, ddpcr_sheet_name, layout_path, layout_sheet_name, output_fo
         f" negative droplets."
     )
 
-    # Step 131
-    print(f"\nStep 131")
+    # Step 107
+    print(f"\nStep 107")
     ddpcr7, too_dilute = aa.ddpcr_find_too_dilute(ddpcr6, param_dict)
     print(
         f"{too_dilute.shape[0]:.3g} is the number of samples, positive PCR NIST controls, negative DNA extraction controls,"
@@ -201,7 +201,7 @@ def main(ddpcr_path, ddpcr_sheet_name, layout_path, layout_sheet_name, output_fo
         droplets_low.to_excel(writer, sheet_name="too_few_droplets", index=False)
         too_conc.to_excel(writer, sheet_name="too_concentrated", index=False)
         too_dilute.to_excel(writer, sheet_name="too_dilute", index=False)
-    print(f"\nOutputs Complete")
+    print(f"\nOutputs Complete\n")
 
 
 if __name__ == "__main__":
