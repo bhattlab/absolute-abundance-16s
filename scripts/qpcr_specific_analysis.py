@@ -236,7 +236,7 @@ def main(
     vc = layout96["Name"].value_counts()
     if vc.max() > 1:
         vc = vc[vc > 1]
-        raise ValueError(f"{len(vc)} sample names occur more than once: {", ".join(vc.index)}")
+        raise ValueError(f"{len(vc)} sample names occur more than once: {', '.join(vc.index)}")
 
     # Formatting
     qpcr2, layout96 = aa.qpcr_initial_formatting(layout96, format_conversion, qpcr, param_dict)

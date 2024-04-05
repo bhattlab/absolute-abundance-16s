@@ -134,7 +134,7 @@ def main(ddpcr_path, ddpcr_sheet_name, layout_path, layout_sheet_name, output_fo
     vc = layout96["Name"].value_counts()
     if vc.max() > 1:
         vc = vc[vc > 1]
-        raise ValueError(f"{len(vc)} sample names occur more than once: {", ".join(vc.index)}")
+        raise ValueError(f"{len(vc)} sample names occur more than once: {', '.join(vc.index)}")
 
     # Formatting
     ddpcr2 = aa.ddpcr_formatting(layout96, ddpcr)
